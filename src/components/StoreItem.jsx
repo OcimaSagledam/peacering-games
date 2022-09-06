@@ -1,7 +1,7 @@
 export default function StoreItem({ url, name, price, short_description }) {
 
     return <div className="flex flex-col lg:flex-row lg:space-x-6 mb-8 lg:mb-2 h-fit lg:h-56">
-        <img src={url} alt="" width="224" className="mx-auto w-[330px] p-1 border border-black" />
+        <img src={url} alt="" width="224" className="mx-auto w-[330px] p-1 m-1 border border-black" />
         <div className="border border-black p-2 w-full">
             <p>
                 <span className="font-bold">Product Name:</span> {name}
