@@ -11,6 +11,8 @@ import BlogPage from "./components/BlogPage";
 import SupportPage from "./components/SupportPage";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
+import ArticlePage from "./components/ArticlePage";
+import ItemPage from "./components/ItemPage";
 
 import NavLinks from "./components/NavLinks";
 import { useMediaQuery } from 'react-responsive'
@@ -76,7 +78,9 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route path="/store" element={<StorePage />} />
+          <Route path="/store/:id" element={<ItemPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<ArticlePage />} />
           <Route path="/support" element={<SupportPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />

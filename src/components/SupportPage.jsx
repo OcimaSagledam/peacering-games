@@ -78,7 +78,7 @@ export default function SupportPage() {
                     <h1 className="text-lg font-bold">Recently Asked Questions</h1>
                 </div>
 
-                <div className="h-full overflow-auto p-1">
+                <div className="h-full p-1">
                     {!Array.isArray(faq) ?
                         <span>Loading....</span>
                         :

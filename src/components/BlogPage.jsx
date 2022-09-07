@@ -57,17 +57,17 @@ export default function BlogPage() {
             <div className="h-full xl:h-1/2 border-b-4 border-black flex items-center justify-center">
                 {latestItem && <LatestBlog url={latestItem.url} title={latestItem.title} description={latestItem.short_description}></LatestBlog>}
             </div>
-            <div className="h-[90%] mx-auto px-4 xl:px-40">
+            <div className="h-[90%] mx-auto px-4 xl:px-20">
                 <div className="flex items-center w-full my-4 px-1">
                     <input className="border border-black h-14 w-full px-2" placeholder="Search..." type="text" value={searchValue} onChange={handleChange} />
                 </div>
 
-                <div className="h-[85%] lg:h-full overflow-auto p-1 grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="h-full lg:h-full p-1 grid justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                     {!Array.isArray(items) ?
                         <span>Loading....</span>
                         :
                         items.map((item, index) =>
-                            <BlogArticle key={index} url={item.url} title={item.title} date={item.date} description={item.short_description} />
+                            <BlogArticle key={index} id={item._id} url={item.url} title={item.title} date={item.date} description={item.short_description} />
                         )}
                 </div>
             </div>
