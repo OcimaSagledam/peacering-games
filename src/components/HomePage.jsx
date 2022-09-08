@@ -54,9 +54,9 @@ export default function HomePage() {
                             :
                             items.map((item, index) =>
                                 <Slide innerClassName="flex items-center justify-center px-2" index={index}>
-                                    <FeaturedItem url={item.url} name={item.name} price={Number(item.price).toFixed(2)} />
+                                    <FeaturedItem key={index} url={item.url} name={item.name} price={Number(item.price).toFixed(2)} />
                                 </Slide>
-                        )}
+                            )}
                     </Slider>
                 </CarouselProvider>
             </div>

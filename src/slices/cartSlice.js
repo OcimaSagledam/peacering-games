@@ -6,12 +6,26 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, {payload}) => {
+    addToCart: (state, { payload }) => {
+      console.log(state, payload)
+      const index = state.findIndex((item) => item.id === payload.id)
+      if (index === -1) {
         state.push(payload)
+      } else {
+        state[index].amount++
+      }
     },
-    removeFromCart: (state, {payload}) => {
-        const index = state.findIndex((item) => item._id === payload._id)
-        state.splice(index, 1)
+    removeFromCart: (state, { payload }) => {
+      const index = state.findIndex((item) => item.id === payload.id)
+      if (index === -1) {
+        return state
+      } else {
+        if (state[index].amount === 1) {
+          state.splice(index, 1)
+        } else {
+          state[index].amount--
+        }
+      }
     },
   },
 })

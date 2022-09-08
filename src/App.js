@@ -13,13 +13,16 @@ import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import ArticlePage from "./components/ArticlePage";
 import ItemPage from "./components/ItemPage";
+import CartPage from "./components/CartPage";
 
 import NavLinks from "./components/NavLinks";
 import { useMediaQuery } from 'react-responsive'
-import { Bars3Icon } from '@heroicons/react/24/outline'
+import { Bars3Icon, ShoppingCartIcon } from '@heroicons/react/24/outline'
 import FacebookIcon from "./icons/FacebookIcon";
 import InstagramIcon from "./icons/InstagramIcon";
 import TwitterIcon from "./icons/TwitterIcon";
+
+import { useSelector } from 'react-redux'
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -39,6 +42,12 @@ export default function App() {
 
   const [showDropdown, setShowDropdown] = useState(false)
 
+  const loggedIn = Boolean(sessionStorage.getItem("auth_token"))
+
+  const cart = useSelector((state) => state.cart)
+
+  const amountInCart = cart.reduce((partialSum, a) => partialSum + a.amount, 0);
+
   return (
     <div className="overflow-hidden">
       {/* navbar component */}
@@ -51,6 +60,9 @@ export default function App() {
 
               {showDropdown &&
                 <div className="absolute flex flex-col top-24 left-0 right-0 z-10 bg-neutral-900 text-white">
+                  <span className={`transition mb-2 ${location.pathname === "/" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
+                    <Link to="/cart">Cart ({amountInCart})</Link>
+                  </span>
                   <NavLinks marginBottom="mb-2" />
                   <hr className="my-2" />
                   <span className={`transition mb-2 ${location.pathname === "/login" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
@@ -67,9 +79,22 @@ export default function App() {
               <NavLinks />
             </div>
 
-            <span className={`transition ${location.pathname === "/login" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
-              <Link to="/login">Login</Link>
-            </span>
+            {loggedIn ?
+              <span className={`transition ${location.pathname === "/cart" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
+                <Link to="/cart">
+                  <div className="relative">
+                    <ShoppingCartIcon className="h-8 w-8" />
+                    {amountInCart > 0 &&
+                      <div className="absolute px-0.5 text-xs w-fit bg-[#FF6161] text-white bottom-0 right-0 rounded-full">
+                        {amountInCart}
+                      </div>}
+                  </div>
+                </Link>
+              </span>
+              :
+              <span className={`transition ${location.pathname === "/login" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
+                <Link to="/login">Login</Link>
+              </span>}
           </>
         }
       </div>
@@ -84,6 +109,7 @@ export default function App() {
           <Route path="/support" element={<SupportPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
       </div>
 

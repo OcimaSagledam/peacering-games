@@ -1,7 +1,7 @@
 
 import { Link, useLocation } from "react-router-dom";
 
-export default function NavLinks ({ marginBottom = "mb-0" }) {
+export default function NavLinks({ marginBottom = "mb-0" }) {
     const location = useLocation();
 
     return <>

@@ -21,6 +21,19 @@ export default function ArticlePage() {
     }, [id])
 
     return <PageWrapper>
-        {item.title}
+        <div className="flex flex-col items-center justify-center h-[600px] max-w-56">
+        <img src={item.url} alt="" className="w-[330px] h-[213px] p-1 border border-black mb-2" />
+
+        <div className="border border-black w-[330px]">
+            <div className="p-2">
+                <p className="h-[60px]">
+                    <span className="font-bold">{item.title}</span>
+                </p>
+                <p className="h-[200px] overflow-y-auto">
+                    {item.article}
+                </p>
+            </div>
+        </div>
+    </div>
     </PageWrapper>
 }

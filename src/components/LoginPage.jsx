@@ -16,7 +16,7 @@ export default function LoginPage() {
         try {
             const response = await axios.post('http://localhost:4000/user/login', { user_name, password });
 
-            localStorage.setItem("auth_token", response.data.auth_token)
+            sessionStorage.setItem("auth_token", response.data.auth_token)
 
             navigate("/")
 
