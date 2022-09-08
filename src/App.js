@@ -22,7 +22,10 @@ import FacebookIcon from "./icons/FacebookIcon";
 import InstagramIcon from "./icons/InstagramIcon";
 import TwitterIcon from "./icons/TwitterIcon";
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { deleteCart } from "./slices/cartSlice"
+import { useNavigate } from "react-router-dom";
+
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -34,6 +37,8 @@ import { useSelector } from 'react-redux'
 // work properly.
 
 export default function App() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const location = useLocation();
 
   const isTablet = useMediaQuery({
@@ -60,13 +65,29 @@ export default function App() {
 
               {showDropdown &&
                 <div className="absolute flex flex-col top-24 left-0 right-0 z-10 bg-neutral-900 text-white">
-                  <span className={`transition mb-2 ${location.pathname === "/" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
-                    <Link to="/cart">Cart ({amountInCart})</Link>
-                  </span>
+                  {loggedIn &&
+                    <>
+                      <span className={`transition mb-2 ${location.pathname === "/cart" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
+                        <Link to="/cart">Cart ({amountInCart})</Link>
+                      </span>
+                    </>
+                  }
                   <NavLinks marginBottom="mb-2" />
                   <hr className="my-2" />
                   <span className={`transition mb-2 ${location.pathname === "/login" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
-                    <Link to="/login">Login</Link>
+                    {loggedIn ?
+                      <button
+                        onClick={() => {
+                          sessionStorage.removeItem("auth_token")
+                          dispatch(deleteCart())
+                          navigate(`/`)
+                        }}
+                        className="transition text-white transition hover:text-[#FF6161]" type="button">
+                        Log Out
+                      </button>
+                      :
+                      <Link to="/login">Login</Link>
+                    }
                   </span>
                 </div>
               }
@@ -80,17 +101,28 @@ export default function App() {
             </div>
 
             {loggedIn ?
-              <span className={`transition ${location.pathname === "/cart" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
-                <Link to="/cart">
-                  <div className="relative">
-                    <ShoppingCartIcon className="h-8 w-8" />
-                    {amountInCart > 0 &&
-                      <div className="absolute px-0.5 text-xs w-fit bg-[#FF6161] text-white bottom-0 right-0 rounded-full">
-                        {amountInCart}
-                      </div>}
-                  </div>
-                </Link>
-              </span>
+              <div className="flex">
+                <span className={`transition ${location.pathname === "/cart" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
+                  <Link to="/cart">
+                    <div className="relative">
+                      <ShoppingCartIcon className="h-8 w-8" />
+                      {amountInCart > 0 &&
+                        <div className="absolute px-0.5 text-xs w-fit bg-[#FF6161] text-white bottom-0 right-0 rounded-full">
+                          {amountInCart}
+                        </div>}
+                    </div>
+                  </Link>
+                </span>
+                <button
+                  onClick={() => {
+                    sessionStorage.removeItem("auth_token")
+                    dispatch(deleteCart())
+                    navigate(`/`)
+                  }}
+                  className="transition text-white transition hover:text-[#FF6161] ml-8" type="button">
+                  Log Out
+                </button>
+              </div>
               :
               <span className={`transition ${location.pathname === "/login" ? "text-[#FF6161]" : "hover:text-[#FF6161]"}`}>
                 <Link to="/login">Login</Link>

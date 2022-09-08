@@ -6,7 +6,7 @@ export default function StoreItem({ id, url, name, price, short_description, amo
     const dispatch = useDispatch()
 
     return <div className="flex flex-col lg:flex-row lg:space-x-6 mb-8 lg:mb-2 h-fit lg:h-56">
-        <img src={url} alt="" width="224" className="mx-auto w-[330px] p-1 m-1 border border-black" />
+        <img src={url} alt="" width="224" className="mx-auto w-[330px] p-1 border border-black" />
         <div className="border border-black p-2 w-full">
             <p>
                 <span className="font-bold">Product Name:</span> {name}
@@ -18,16 +18,16 @@ export default function StoreItem({ id, url, name, price, short_description, amo
                 <span className="font-bold">Short Description:</span> {short_description}
             </p>
         </div>
-        <div className="h-full flex w-40 flex-col space-y-2 items-end">
-            <button onClick={() => dispatch(addToCart({ id, url, name, price, short_description, amount: 1 }))} className="flex items-center justify-center border h-1/3 w-full border-black hover:bg-[#FF6161]">
+        <div className="h-full w-full sm:w-40 flex flex-row-reverse space-y-2 items-end sm:flex-col">
+            <button onClick={() => dispatch(addToCart({ id, url, name, price, short_description, amount: 1 }))} className="flex items-center justify-center border h-1/3 w-1/3 sm:w-full border-black hover:bg-[#FF6161]">
                 <ChevronUpIcon className="w-8 h-8" />
             </button>
-            <div className="flex items-center justify-center border h-1/3 w-full text-xl border-black">
+            <div className="flex items-center justify-center border h-1/3 w-1/3 sm:w-full text-xl border-black">
                 <span>
                     {amount}
                 </span>
             </div>
-            <button onClick={() => dispatch(removeFromCart({ id, url, name, price, short_description, amount: 1 }))} className="flex items-center justify-center border h-1/3 w-full border-black hover:bg-[#FF6161]">
+            <button onClick={() => dispatch(removeFromCart({ id, url, name, price, short_description, amount: 1 }))} className="flex items-center justify-center border h-1/3 w-1/3 sm:w-full border-black hover:bg-[#FF6161]">
                 <ChevronDownIcon className="w-8 h-8" />
             </button>
         </div>

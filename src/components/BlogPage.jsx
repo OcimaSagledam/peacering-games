@@ -34,7 +34,7 @@ export default function BlogPage() {
             setLatestItems(data)
         }
 
-            getLatestItems()
+        getLatestItems()
         if (!debouncedSearchValue) {
             getItems()
         }
@@ -55,7 +55,7 @@ export default function BlogPage() {
         <div className="h-full overflow-auto relative">
             <div className="absolute left-0 top-0 featured h-16 text-3xl w-fit px-2 leading-[4rem]">{isTablet ? "FEATURED" : "FEATURED BLOG"}</div>
             <div className="h-full xl:h-1/2 border-b-4 border-black flex items-center justify-center">
-                {latestItem && <LatestBlog url={latestItem.url} title={latestItem.title} description={latestItem.short_description}></LatestBlog>}
+                {latestItem && <LatestBlog id={latestItem._id} url={latestItem.url} title={latestItem.title} description={latestItem.short_description}></LatestBlog>}
             </div>
             <div className="h-[90%] mx-auto px-4 xl:px-20">
                 <div className="flex items-center w-full my-4 px-1">

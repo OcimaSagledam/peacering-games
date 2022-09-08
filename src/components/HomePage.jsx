@@ -34,7 +34,7 @@ export default function HomePage() {
     return <PageWrapper>
         <div className="h-full overflow-auto">
             <div className="h-full xl:h-2/3 border-b-4 border-black flex items-center justify-center">
-                {latestItem && <LatestItem urlHP={latestItem.urlHP} name={latestItem.name} description={latestItem.short_description}></LatestItem>}
+                {latestItem && <LatestItem id={latestItem._id} urlHP={latestItem.urlHP} name={latestItem.name} description={latestItem.short_description}></LatestItem>}
             </div>
             <div className="h-1/2 mx-auto px-4 xl:px-40 relative">
                 <div className="absolute -left-4 xl:-left-40 featured h-16 text-3xl w-fit px-2 leading-[4rem]">{isTablet ? "FEATURED" : "FEATURED PRODUCTS"}</div>
@@ -54,7 +54,7 @@ export default function HomePage() {
                             :
                             items.map((item, index) =>
                                 <Slide innerClassName="flex items-center justify-center px-2" index={index}>
-                                    <FeaturedItem key={index} url={item.url} name={item.name} price={Number(item.price).toFixed(2)} />
+                                    <FeaturedItem key={index} id={item._id} url={item.url} name={item.name} price={Number(item.price).toFixed(2)} />
                                 </Slide>
                             )}
                     </Slider>
